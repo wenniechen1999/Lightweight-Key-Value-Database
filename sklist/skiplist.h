@@ -7,12 +7,6 @@
 #include <fstream>
 #include <memory>
 
-/*你会在.h文件中声明函数和类，而将它们的定义放置在一个单独的.cpp文件中。
-但是在使用模板时，这种习惯性做法将变得不再有用，因为当实例化一个模板时，
-编译器必须看到模板确切的定义，而不仅仅是它的声明。
-因此，最好的办法就是将模板的声明和定义都放置在同一个.h文件中。
-这就是为什么所有的STL头文件都包含模板定义的原因.
-*/
 
 #define STORE_FILE "store/dumpFile"
 
@@ -55,7 +49,7 @@ Node<K, V>::Node(const K k, const V v, int level)
     this->value = v;
     this->node_level = level;
 
-    this->forward = new Node<K, V> *[level + 1]; //数组大小/ 树高level+1
+    this->forward = new Node<K, V> *[level + 1]; //數組大小/ 樹高level+1
 
     memset(this->forward, 0, sizeof(Node<K, V> *) * (level + 1));
 };
@@ -238,7 +232,6 @@ int SkipList<K, V>::insert_element(const K key, const V value)
         {
             for (int i = _skip_list_level + 1; i <= random_level; i++)
             {
-                //将所有新的开辟层级的节点的头结点设置好
                 update[i] = _header;
             }
             _skip_list_level = random_level;
@@ -253,7 +246,7 @@ int SkipList<K, V>::insert_element(const K key, const V value)
             inserted_node->forward[i] = update[i]->forward[i];
             update[i]->forward[i] = inserted_node;
         }
-        std::cout << "Successfully inserted key: " << key << ", value: " << value << std::endl;
+        std::cout << "\nSuccessfully inserted key: " << key << ", value: " << value << std::endl;
         _element_count++;
     }
     mtx.unlock();
@@ -289,7 +282,7 @@ void SkipList<K, V>::display_list()
 template <typename K, typename V>
 void SkipList<K, V>::dump_file()
 {
-    std::cout << "dump_file----------------" << std::endl;
+    std::cout << "dump_file----------------\n" << std::endl;
     _file_writer.open(STORE_FILE);
 
     Node<K, V> *node = this->_header->forward[0];
@@ -312,7 +305,7 @@ template <typename K, typename V>
 void SkipList<K, V>::load_file()
 {
     _file_reader.open(STORE_FILE);
-    std::cout << "load_file---------------" << std::endl;
+    std::cout << "load_file---------------\n" << std::endl;
     std::string line;
 
     //TODO
@@ -402,13 +395,13 @@ void SkipList<K, V>::delete_element(K key)
             _skip_list_level--;
         }
 
-        std::cout << "Successfully deleted key" << key << std::endl;
+        std::cout << "\nSuccessfully deleted key" << key << std::endl;
         delete current;
         _element_count--;
     }
     else
     {
-        std::cout << "The key is not existed: " << key << std::endl;
+        std::cout << "\nThe key is not existed: " << key << std::endl;
     }
     mtx.unlock();
     return;
@@ -437,7 +430,7 @@ level 0         1    4   9 10         30   40    50+-->60      70       100
 template <typename K, typename V>
 bool SkipList<K, V>::search_element(K key)
 {
-    std::cout << "search_element--------------" << std::endl;
+    std::cout << "\nsearch_element--------------" << std::endl;
     Node<K, V> *current = _header;
 
     // start from highest level of skip list
@@ -455,7 +448,7 @@ bool SkipList<K, V>::search_element(K key)
 
     if (current != nullptr && current->get_key() == key)
     {
-        std::cout << "Found key: " << key << ", value: " << current->get_value() << std::endl;
+        std::cout << "\nFound key: " << key << ", value: " << current->get_value() << std::endl;
         return true;
     }
 
@@ -477,7 +470,7 @@ void SkipList<K, V>::clear_list()
         current = tmp;
     }
 
-    //若不清空，_header->forward[0]会保存非法值，插入时调用_header->forward[0]->get_key出错
+    // If not cleared, _header->forward[0] will retain an illegal value, leading to an error when calling _header->forward[0]->get_key during insertion.
     memset(_header->forward, 0, sizeof(Node<K, V> *) * (_skip_list_level + 1));
     _skip_list_level = 0;
     _element_count = 0;
@@ -498,7 +491,7 @@ SkipList<K, V>::SkipList(int max_level)
     this->_header = new Node<K, V>(k, v, _max_level);
 };
 
-//析构跳表
+
 template <typename K, typename V>
 SkipList<K, V>::~SkipList()
 {
@@ -511,7 +504,7 @@ SkipList<K, V>::~SkipList()
         _file_writer.flush();
         _file_writer.close();
     }
-    //删除所有的节点信息
+    // delete all nodes
     Node<K, V> *current = _header->forward[0];
     while (current)
     {
@@ -522,11 +515,10 @@ SkipList<K, V>::~SkipList()
     delete _header;
 };
 
-//获得随机层级
+//Get a random level
 template <typename K, typename V>
 int SkipList<K, V>::get_random_level()
 {
-    //TODO 为什么从1开始而不是从0开始
     int random_level = 1;
     while (rand() % 2)
     {

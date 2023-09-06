@@ -1,9 +1,3 @@
-/* ************************************************************************
-> File Name:     main.cpp
-> Author:        hengzhu
-> Created Time:  2021/4/21
-> Description:   
- ************************************************************************/
 #include <iostream>
 #include <string.h>
 #include "./sklist/skiplist.h"
@@ -12,9 +6,9 @@
 void print()
 {
     std::cout << std::endl;
-    std::cout << "********************************************************************************************************" << std::endl;
-    std::cout << "* 1.insert  2.search  3.delete  4.display_list  5.List_size  6.dump_file  7.load_file  8.clear_list *" << std::endl;
-    std::cout << "********************************************************************************************************" << std::endl;
+    std::cout << "**************************************************************************************************************" << std::endl;
+    std::cout << "* 1.insert  2.search  3.delete  4.display_list  5.List_size  6.dump_file  7.load_file  8.clear_list  888.Exit*" << std::endl;
+    std::cout << "**************************************************************************************************************" << std::endl;
     std::cout << "Please enter the number to start the operation:  ";
 }
 
@@ -40,7 +34,8 @@ int main(int argc, char *argv[])
     SkipList<int, std::string> skipList(atoi(argv[1]));
 
     std::cout << "\n*****************   A tiny KV storage based on skiplist   ********************"
-              << "\n";
+              << "\nNOTE : Keys must be positive integers and cannot exceed 5 digits.  "
+              << "\n\n\n";
 
     print();
     std::string flagstr = "";
@@ -53,7 +48,7 @@ int main(int argc, char *argv[])
         }
         if (!keyIsValid(flagstr))
         {
-            std::cout << "The enter is invalid,  please enter again:" << std::endl;
+            std::cout << "\nThe enter is invalid,  please enter again:\n" << std::endl;
             continue;
         }
         flag = stoi(flagstr);
@@ -74,7 +69,7 @@ int main(int argc, char *argv[])
                 break;
             }
             key = stoi(keystr);
-            std::cout << "Please enter value:  ";
+            std::cout << "\nPlease enter value:  ";
             std::cin >> value;
             skipList.insert_element(key, value);
             break;
@@ -87,7 +82,7 @@ int main(int argc, char *argv[])
             std::cin >> keystr;
             if (!keyIsValid(keystr))
             {
-                std::cout << "The key is invalid,  please check again" << std::endl;
+                std::cout << "\nThe key is invalid,  please check again" << std::endl;
                 break;
             }
             key = stoi(keystr);
@@ -116,7 +111,7 @@ int main(int argc, char *argv[])
         }
         case 5:
         {
-            std::cout << "skipList size:" << skipList.size() << std::endl;
+            std::cout << " SkipList size:" << skipList.size() << std::endl;
             break;
         }
         case 6:
@@ -136,10 +131,11 @@ int main(int argc, char *argv[])
         }
         case 888:
         {
+            std::cout << "Exit" << std::endl;
             return 0;
         }
         default:
-            std::cout << "your input is not right,  please input again" << std::endl;
+            std::cout << "Your input is not right,  please input again" << std::endl;
             break;
         }
         print();
