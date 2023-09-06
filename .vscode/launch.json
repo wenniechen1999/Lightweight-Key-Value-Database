@@ -1,19 +1,15 @@
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
-
     "version": "0.2.0",
     "configurations": [
  
         {
-            "name": "test", //名称随便取
-            "type": "cppdbg", //调试类型
-            "request": "launch", //请求配置类型
-            "program": "${fileDirname}/${fileBasenameNoExtension}", //可执行程序完整路径（包含程序名称）
+            "name": "test", 
+            "type": "cppdbg", 
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}", 
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}", //可执行程序完整路径（不包含程序名称）
+            "cwd": "${workspaceFolder}", 
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -24,8 +20,8 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "main", //task 任务名称（与tasks.json中名称一致）
-            "miDebuggerPath": "/usr/bin/gdb" //gdb完整路径
+            "preLaunchTask": "main", 
+            "miDebuggerPath": "/usr/bin/gdb" 
         }
     ]
 }
