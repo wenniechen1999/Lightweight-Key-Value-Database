@@ -7,7 +7,7 @@ void print()
 {
     std::cout << std::endl;
     std::cout << "**************************************************************************************************************" << std::endl;
-    std::cout << "* 1.insert  2.search  3.delete  4.display_list  5.List_size  6.dump_file  7.load_file  8.clear_list  888.Exit*" << std::endl;
+    std::cout << "* 1.insert  2.search  3.delete  4.display_list  5.clear_list  6.List_size  7.dump_file  8.load_file  888.Exit*" << std::endl;
     std::cout << "**************************************************************************************************************" << std::endl;
     std::cout << "Please enter the number to start the operation:  ";
 }
@@ -34,8 +34,8 @@ int main(int argc, char *argv[])
     SkipList<int, std::string> skipList(atoi(argv[1]));
 
     std::cout << "\n*****************   A tiny KV storage based on skiplist   ********************"
-              << "\nNOTE : Keys must be positive integers and cannot exceed 5 digits.  "
-              << "\n\n\n";
+              << "\n\nNOTE : Keys must be positive integers and cannot exceed 5 digits.  "
+              << "\n";
 
     print();
     std::string flagstr = "";
@@ -111,22 +111,22 @@ int main(int argc, char *argv[])
         }
         case 5:
         {
-            std::cout << " SkipList size:" << skipList.size() << std::endl;
+            skipList.clear_list();
             break;
         }
         case 6:
         {
-            skipList.dump_file();
+            std::cout << " SkipList size:" << skipList.size() << std::endl;
             break;
         }
         case 7:
         {
-            skipList.load_file();
+            skipList.dump_file();
             break;
         }
         case 8:
         {
-            skipList.clear_list();
+            skipList.load_file();
             break;
         }
         case 888:
@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
             return 0;
         }
         default:
-            std::cout << "Your input is not right,  please input again" << std::endl;
+            std::cout << "Your input is not right, please input again!" << std::endl;
             break;
         }
         print();
