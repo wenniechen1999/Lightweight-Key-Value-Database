@@ -10,7 +10,6 @@
 #define TEST_COUNT 100000
 SkipList<int, std::string> skipList(16);
 #define test_insert
-// #define test_get
 
 void *insertElement(void *threadid)
 {
