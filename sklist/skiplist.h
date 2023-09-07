@@ -263,8 +263,6 @@ void SkipList<K, V>::display_list()
         std::cout << " List is Null" << std::endl;
         return;
     }
-
-    //自顶向下展示整个表
     for (int i = _skip_list_level; i >= 0; i--)
     {
         Node<K, V> *node = this->_header->forward[i];
